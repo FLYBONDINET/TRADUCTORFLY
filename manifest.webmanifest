@@ -1,0 +1,16 @@
+{
+  "name": "Flybondi · Anunciador Multilingüe",
+  "short_name": "Announcer",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFD200",
+  "icons": [
+    {
+      "src": "assets/logo.svg",
+      "sizes": "128x128",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

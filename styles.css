@@ -1,0 +1,130 @@
+/* Flybondi Announcer UI */
+:root {
+  --yellow: #FFD200;
+  --black: #111111;
+  --gray: #F6F6F6;
+  --radius: 16px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Inter, Arial, sans-serif; background: var(--gray); color: var(--black);}
+
+.topbar {
+  position: sticky; top:0; z-index:10; display:flex; justify-content:space-between; align-items:center;
+  padding: 10px 14px; background: var(--yellow); border-bottom: 2px solid rgba(0,0,0,.08);
+}
+.topbar .brand { display:flex; gap:10px; align-items:center; font-weight:800; font-size: 1.1rem; }
+.topbar .brand img { width:28px; height:28px; }
+.topbar .actions { display:flex; gap:8px; align-items:center; }
+
+main { max-width: 1100px; margin: 18px auto; padding: 0 14px; display:flex; flex-direction:column; gap:16px; }
+
+.card {
+  background:#fff; border-radius: var(--radius); padding:16px; box-shadow: 0 6px 20px rgba(0,0,0,.06);
+}
+.card.small summary { cursor:pointer; font-weight:700; }
+.card.small details > div { margin-top:12px; }
+
+h2 { margin:0 0 12px; font-size: 1.2rem; }
+
+.grid { display:grid; gap:12px; }
+.grid.two { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.grid.three { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.voice-row label { min-width: 160px; }
+
+.field span { display:block; font-size:.9rem; margin-bottom:6px; font-weight:600; }
+.field input, .field select, .field textarea {
+  width:100%; padding:10px 12px; border:1px solid #ddd; border-radius:12px; background:#fff;
+  outline:none; transition:.2s border;
+}
+.field textarea { min-height: 80px; resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--yellow); }
+
+.toggles { display:flex; flex-wrap:wrap; gap:16px; margin-top:8px; }
+.chk { display:flex; gap:8px; align-items:center; font-size:.95rem; }
+
+.btn {
+  display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; border:1px solid #ddd; background:#fff; cursor:pointer; font-weight:700;
+}
+.btn.primary { background: var(--yellow); border-color:#dcb600; }
+.btn.ghost { background: transparent; border:1px dashed #aaa; }
+
+.actions { display:flex; gap:10px; align-items:center; margin-top:12px; flex-wrap: wrap;}
+
+.output { background: #fafafa; border:1px solid #eee; border-radius:12px; padding:12px; margin-top:14px; }
+.output h3 { margin:0 0 10px 0; }
+.output > div { padding:8px 10px; border-radius:8px; border:1px solid #eee; background:#fff; margin-bottom:8px; white-space: pre-wrap; }
+
+.footer { text-align:center; padding:18px; color:#666; font-size:.9rem; }
+
+/* Checkboxes layout */
+.checks { display:flex; flex-wrap:wrap; gap:10px 18px; }
+.checks .chk small { color:#666; margin-left:6px; }
+
+@media (max-width: 480px) {
+  .topbar .brand span { display:none; }
+}
+
+
+/* Custom grid for boarding groups */
+.grid-groups {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) auto;
+  gap: 8px 20px;
+  align-items: center;
+}
+.grid-groups .chk.all {
+  grid-column: 3 / 4;
+  grid-row: 1 / 3;
+  align-self: center;
+}
+
+
+/* Align groups grid items */
+.grid-groups {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) auto;
+  gap: 8px 20px;
+  align-items: center;
+}
+.grid-groups label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.grid-groups .chk small {
+  font-size: 0.85em;
+  color: #555;
+}
+.grid-groups .chk.all {
+  grid-column: 3 / 4;
+  grid-row: 1 / 3;
+  align-self: center;
+}
+
+
+/* Fix alineación de los grupos */
+.grid-groups {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto; /* dos columnas de grupos + Todos */
+  gap: 10px 20px;
+}
+
+.grid-groups .chk {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.grid-groups .chk small {
+  margin-left: 4px;
+  font-size: 0.85em;
+  color: #555;
+}
+
+.grid-groups .chk.all {
+  grid-column: 3 / 4;
+  grid-row: 1 / 3;  /* ocupa alto de ambas filas */
+  align-self: center;
+}
