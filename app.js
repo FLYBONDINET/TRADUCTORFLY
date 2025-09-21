@@ -114,19 +114,35 @@ function nowGateSuffix(lang, gate2) {
 }
 
 function gateSuffix(lang, gate) {
-  // Standard gate mention
-
   if (!gate) return '';
-  if (lang==='EN') return ` Boarding at gate ${gate}.`;
-  if (lang==='PT') return ` Embarque pelo portão ${gate}.`;
+  // separar números y letras (ej: "5A")
+  const match = gate.match(/^(\d+)([A-Za-z]?)$/);
+  if (match) {
+    const num = parseInt(match[1], 10);
+    const letter = match[2] ? match[2].toUpperCase() : '';
+    const numW = numWord(lang, num);
+    if (lang === 'EN') return ` Boarding at gate ${numW}${letter ? ' ' + letter : ''}.`;
+    if (lang === 'PT') return ` Embarque pelo portão ${numW}${letter ? ' ' + letter : ''}.`;
+    return ` Embarque por la puerta ${numW}${letter ? ' ' + letter : ''}.`;
+  }
+  // fallback
+  if (lang === 'EN') return ` Boarding at gate ${gate}.`;
+  if (lang === 'PT') return ` Embarque pelo portão ${gate}.`;
   return ` Embarque por la puerta ${gate}.`;
 }
 
 function gateChangeSuffix(lang, oldGate, newGate) {
   if (!newGate || newGate === oldGate) return '';
-  if (lang==='EN') return ` Attention: now boarding at gate ${newGate}.`;
-  if (lang==='PT') return ` Atenção: agora no portão ${newGate}.`;
-  return ` Atención: ahora por la puerta ${newGate}.`;
+  const match = newGate.match(/^(\d+)([A-Za-z]?)$/);
+  let gateText = newGate;
+  if (match) {
+    const num = parseInt(match[1], 10);
+    const letter = match[2] ? match[2].toUpperCase() : '';
+    gateText = numWord(lang, num) + (letter ? ' ' + letter : '');
+  }
+  if (lang === 'EN') return ` Attention: now boarding at gate ${gateText}.`;
+  if (lang === 'PT') return ` Atenção: agora no portão ${gateText}.`;
+  return ` Atención: ahora por la puerta ${gateText}.`;
 }
 
 const TEMPLATES = {
