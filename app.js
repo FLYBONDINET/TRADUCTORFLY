@@ -57,6 +57,15 @@ fetch('data/destinations.json').then(r => r.json()).then(list => {
   altDestinationSel.innerHTML = destinationSel.innerHTML;
 });
 
+function numWord(lang, n) {
+  const EN = ['', 'one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty','twenty-one','twenty-two','twenty-three','twenty-four','twenty-five','twenty-six','twenty-seven','twenty-eight','twenty-nine','thirty','thirty-one','thirty-two'];
+  const ES = ['', 'uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve','veinte','veintiuno','veintidós','veintitrés','veinticuatro','veinticinco','veintiséis','veintisiete','veintiocho','veintinueve','treinta','treinta y uno','treinta y dos'];
+  const PT = ['', 'um','dois','três','quatro','cinco','seis','sete','oito','nove','dez','onze','doze','treze','catorze','quinze','dezesseis','dezessete','dezoito','dezenove','vinte','vinte e um','vinte e dois','vinte e três','vinte e quatro','vinte e cinco','vinte e seis','vinte e sete','vinte e oito','vinte e nove','trinta','trinta e um','trinta e dois'];
+  if (lang === 'EN') return EN[n] || String(n);
+  if (lang === 'PT') return PT[n] || String(n);
+  return ES[n] || String(n);
+}
+
 const GROUP_ROWS = { '1':[1,8], '2':[9,16], '3':[17,24], '4':[25,32] };
 
 function selectedGroups() {
@@ -69,10 +78,13 @@ function selectedGroups() {
 function groupsWithRows(lang, groups) {
   const joiner = lang === 'EN' ? ' and ' : (lang === 'PT' ? ' e ' : ' y ');
   const label = (g) => {
-    const [a,b] = GROUP_ROWS[g];
-    if (lang==='EN') return `Group ${g} (rows ${a} to ${b})`;
-    if (lang==='PT') return `Grupo ${g} (fileiras ${a} a ${b})`;
-    return `Grupo ${g} (filas ${a} a ${b})`;
+    const [a, b] = GROUP_ROWS[g];
+    const gW = numWord(lang, parseInt(g, 10));
+    const aW = numWord(lang, a);
+    const bW = numWord(lang, b);
+    if (lang === 'EN') return `Group ${gW} (rows ${aW} to ${bW})`;
+    if (lang === 'PT') return `Grupo ${gW} (fileiras ${aW} a ${bW})`;
+    return `Grupo ${gW} (filas ${aW} a ${bW})`;
   };
   return groups.map(label).join(joiner);
 }
@@ -83,7 +95,7 @@ function groupPhrase(lang, groups) {
   }
   if (groups.length===4) {
     return lang==='EN' ? 'all groups' : (lang==='PT' ? 'todos os grupos' : 'todos los grupos');
-  }
+  } 
   return groupsWithRows(lang, groups);
 }
 
